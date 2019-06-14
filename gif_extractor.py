@@ -6,11 +6,12 @@ gifFileName = sys.argv[1]
 try:
     im = Image.open(gifFileName)
     pngDir = gifFileName[:-4]
-    os.mkdir(pngDir)
+    if not os.path.isdir(pngDir):
+        os.mkdir(pngDir)
     try:
         while True:
             current = im.tell()
-            im.save(os.path.join(pngDir, str(current) + '.png'))
+            im.save(os.path.join(pngDir, 'slice_'+str(current) + '.png'))
             im.seek(current + 1)
     except EOFError:
         pass
